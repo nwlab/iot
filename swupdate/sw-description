@@ -1,0 +1,16 @@
+// sw-description
+software =
+{
+        version = "0.1";
+
+        hardware-compatibility: [ "revB"];
+
+        images: (
+                {
+                        filename = "rootfs.ext2";
+                        device = "/dev/mmcblk0p2";
+                        type = "raw";
+                        sha256 = @rootfs.ext2
+                }
+        );
+}

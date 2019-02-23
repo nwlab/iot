@@ -37,7 +37,7 @@ PIDFILE=/var/run/$NAME.pid
 [ -x "$DAEMON" ] || exit 0
 
 # Read configuration variable file if it is present
-[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+[ -r /etc/swupdate/$NAME ] && . /etc/swupdate/$NAME
 
 #
 # Function that starts the daemon/service
@@ -46,7 +46,7 @@ do_start() {
 	local status pid
 
 	status=0
-	pid=`pidofproc $NAME` || status=$?
+	pid=`pidof $NAME` || status=$?
 	case $status in
 	0)
 		echo "$DESC already running ($pid)."
@@ -68,7 +68,7 @@ do_stop() {
 	local pid status
 
 	status=0
-	pid=`pidofproc $NAME` || status=$?
+	pid=`pidof $NAME` || status=$?
 	case $status in
 	0)
 		# Exit when fail to stop, the kill would complain when fail
@@ -99,7 +99,7 @@ do_reload() {
         # If the daemon can reload its configuration without
         # restarting (for example, when it is sent a SIGHUP),
         # then implement that here.
-	pid=`pidofproc $NAME` || status=$?
+	pid=`pidof $NAME` || status=$?
 	case $status in
 	0)
 		echo "Reloading $DESC ..."
@@ -121,7 +121,7 @@ status_of_proc () {
 
 	status=0
 	# pidof output null when no program is running, so no "2>/dev/null".
-	pid=`pidofproc $NAME` || status=$?
+	pid=`pidof $NAME` || status=$?
 	case $status in
 	0)
 		echo "$DESC is running ($pid)."
@@ -158,13 +158,6 @@ try-restart|force-reload)
 	# Only start the service when do_stop succeeds
 	do_stop && do_start
 	;;
-#reload)
-	# If the "reload" action is implemented properly, then let the
-	# force-reload be the alias of reload, and remove it from
-	# try-restart|force-reload)
-	#
-	#do_reload
-	#;;
 *)
 	echo "Usage: $0 {start|stop|status|restart|try-restart|force-reload}" >&2
 	exit 3

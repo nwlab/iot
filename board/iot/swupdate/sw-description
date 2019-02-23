@@ -1,15 +1,18 @@
 // sw-description
 software =
 {
-        version = "0.1";
+        version = "0.2";
+        description = "Firmware update for IOT Project";
 
         hardware-compatibility: [ "revB"];
 
         images: (
                 {
+                        name = "rootfs";
                         filename = "rootfs.ext2";
                         device = "/dev/mmcblk0p2";
                         type = "raw";
+                        installed-directly = true;
                         sha256 = @rootfs.ext2
                 }
         );

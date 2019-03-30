@@ -1,0 +1,1 @@
+SWUPDATE_EXTRA_ARGS="-k /etc/swupdate/swupdate-public.pem"

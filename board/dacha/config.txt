@@ -1107,7 +1107,7 @@ dtparam=i2c_arm_baudrate=100000
 ##
 ##     Default off.
 ##
-#dtparam=spi=off
+dtparam=spi=on
 
 ## random
 ##     Set to "on" to enable the hardware random

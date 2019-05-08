@@ -15,6 +15,6 @@
 
 
 #Makefile for the anonymous (default) project
-PROJECT_NAME :=
+PROJECT_NAME := dacha
 
 include common.mk

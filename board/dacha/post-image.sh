@@ -10,6 +10,10 @@ cp ${BR2_EXTERNAL}/board/${BOARD_NAME}/cmdline.txt ${BINARIES_DIR}/cmdline.txt
 
 cp ${BINARIES_DIR}/zImage ${BINARIES_DIR}/kernel7.img
 
+#dd if=/dev/zero of=${BINARIES_DIR}/data.ext4 bs=124M count=1
+#mkfs.ext4 -F ${BINARIES_DIR}/data.ext4
+#echo "created: ${BINARIES_DIR}/data.ext4"
+
 rm -rf "${GENIMAGE_TMP}"
 
 genimage                           \

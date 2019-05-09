@@ -2,6 +2,7 @@
 #
 # analogclock
 #
+# analogclock -platform linuxfb:fb="/dev/fb1"
 ################################################################################
 
 ANALOGCLOCK_VERSION = 0

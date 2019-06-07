@@ -1,12 +1,21 @@
+# The loopback network interface
 auto lo
 iface lo inet loopback
 
-auto eth0
-iface eth0 inet dhcp
-    pre-up /etc/network/nfs_check
-    wait-delay 15
+iface eth0 inet manual
 
-auto wlan0
-iface wlan0 inet dhcp
-    pre-up wpa_supplicant -Dwext -iwlan0 -c/etc/wpa_supplicant.conf -B
-    down killall wpa_supplicant
+auto eth1
+iface eth1 inet dhcp
+
+iface wlan0 inet manual
+
+# Bridge setup
+auto br0
+iface br0 inet static
+address 192.168.2.240
+  netmask 255.255.255.0
+  gateway 192.168.2.1
+  dns-nameservers 8.8.8.8 8.8.4.4
+  bridge_ports eth0 wlan0
+  bridge_stp off       # disable Spanning Tree Protocol
+  up iptables-restore < /etc/iptables.ipv4.nat

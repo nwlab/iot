@@ -1079,7 +1079,7 @@ dtparam=i2c_arm=on
 ##
 ##     Default off.
 ##
-#dtparam=i2c_vc=off
+dtparam=i2c_vc=on
 
 ## i2c_arm_baudrate
 ##     Set the baudrate of the ARM's i2c interface
@@ -1093,7 +1093,7 @@ dtparam=i2c_arm_baudrate=100000
 ##
 ##     Default 100000.
 ##
-#dtparam=i2c_vc_baudrate=100000
+dtparam=i2c_vc_baudrate=100000
 
 ## i2s
 ##     Set to "on" to enable the i2s interface

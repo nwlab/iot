@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+NAME="hostapd"
+
+case "$1" in
+    start)
+        /usr/sbin/hostapd -B /etc/hostapd.conf
+        ;;
+    stop)
+        ;;
+    restart|reload)
+        ;;
+    *)
+        echo "Usage: $NAME {start}" >&2
+        exit 3
+        ;;
+esac

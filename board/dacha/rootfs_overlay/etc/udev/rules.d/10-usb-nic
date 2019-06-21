@@ -1,0 +1,1 @@
+ACTION=="add", KERNEL=="eth1", SUBSYSTEM=="net", RUN+="/sbin/ifup eth1"

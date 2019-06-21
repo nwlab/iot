@@ -2,9 +2,10 @@
 auto lo
 iface lo inet loopback
 
+auto eth0
 iface eth0 inet manual
 
-auto eth1
+# udev will up plugable interface
 iface eth1 inet dhcp
 
 iface wlan0 inet manual
@@ -19,3 +20,11 @@ address 192.168.2.240
   bridge_ports eth0 wlan0
   bridge_stp off       # disable Spanning Tree Protocol
   up iptables-restore < /etc/iptables.ipv4.nat
+  pre-up ifconfig eth0 0.0.0.0 up
+  pre-up ifconfig wlan0 0.0.0.0 up
+  pre-up brctl addbr br0
+  pre-up brctl addif br0 eth0
+  post-down ifconfig wlan0 0.0.0.0 down
+  post-down ifconfig eth0 0.0.0.0 down
+  post-down brctl delif br0 eth0
+  post-down brctl delbr br0

@@ -7,3 +7,4 @@ config BR2SM_PROJECT_NAME
 	option env="PROJECT_NAME"
 
 	source "../package/analogclock/Config.in"
+	source "../package/dashboard/Config.in"

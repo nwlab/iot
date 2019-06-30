@@ -1,8 +1,19 @@
 #!/bin/sh
 
+file1="/usr/bin/analogclock"
+file2="/usr/bin/dashboard"
+
 case "$1" in
   start)
-    analogclock -platform linuxfb:fb="/dev/fb1" &
+    if [[ -x "$file2" ]]
+    then
+      $file2 -platform linuxfb:fb="/dev/fb1" &
+    else
+      if [[ -x "$file1" ]]
+      then
+        $file1 -platform linuxfb:fb="/dev/fb1" &
+      fi
+    fi
     ;;
   stop)
     ;;

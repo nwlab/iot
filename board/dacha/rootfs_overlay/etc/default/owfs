@@ -1,0 +1,2 @@
+OWFS_MOUNTPOINT="/tmp/1wire"
+#OWFS_ARGS="--debug"

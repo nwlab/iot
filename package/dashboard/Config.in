@@ -1,0 +1,6 @@
+config BR2_PACKAGE_DASHBOARD
+        bool "dashboard"
+        depends on BR2_PACKAGE_QT5
+        select BR2_PACKAGE_QT5BASE_WIDGETS
+        help
+          Dashboard application.

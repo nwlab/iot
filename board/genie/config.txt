@@ -1063,7 +1063,7 @@ disable_overscan=0
 ##
 ##     Default off.
 ##
-#dtparam=audio=off
+dtparam=audio=on
 
 ## i2c_arm
 ##     Enable the ARM's i2c interface

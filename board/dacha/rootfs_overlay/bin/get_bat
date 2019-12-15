@@ -1,0 +1,53 @@
+#!/bin/bash
+
+ # Read UPS Hat status and print on stdout
+ # http://www.raspberrypiwiki.com/images/6/6f/How-to-use-via-i2c.pdf
+
+ OLDUPSVOLTAGE=0  # To detect charging/discharging
+ UPSSTATUS="N/A"
+
+ function swapLHByteToDec() {
+  # $1 is a string using format 0xABCD
+
+  BYTE1=`echo $1 | cut -c 3-4`
+  BYTE2=`echo $1 | cut -c 5-6`
+
+  # Return decimal
+  printf "%d\n" 0x${BYTE2}${BYTE1}
+ }
+
+ function float2Int() {
+  MULT=`echo "$1*100" | bc -l`
+  printf "%.0f\n" ${MULT}
+ }
+
+ while (true); do
+
+  # UPS capacity in HEX
+  UPSCAPACITY=`i2cget -f -y 1 0x36 4 w`
+  SWAPPEDCAPACITY=$(swapLHByteToDec ${UPSCAPACITY} )
+
+  # UPS voltage in HEX
+  UPSVOLTAGE=`i2cget -f -y 1 0x36 2 w`
+  SWAPPEDVOLTAGE=$(swapLHByteToDec ${UPSVOLTAGE} )
+
+  # Calculations see PDF link
+  UPSCAPAPERCENT=`echo "scale=2; ${SWAPPEDCAPACITY}/256" | bc`
+  UPSVOLTDECIMAL=`echo "scale=2; ${SWAPPEDVOLTAGE}*78.125/1000000" | bc`
+
+  INTVOLTAGE=$(float2Int ${UPSVOLTDECIMAL} )
+  INTOLDVOLT=$(float2Int ${OLDUPSVOLTAGE} )
+
+  [ ${INTVOLTAGE} -lt ${INTOLDVOLT} ] && UPSSTATUS="Discharge"
+  [ ${INTVOLTAGE} -gt ${INTOLDVOLT} ] && UPSSTATUS="Charging"
+  [ ${INTVOLTAGE} -eq ${INTOLDVOLT} ] && UPSSTATUS="Charged"
+
+  echo -n `date -R`
+  echo -n " UPSPERCENTLOAD=${UPSCAPAPERCENT}"
+  echo -n " UPSVOLTAGE=${UPSVOLTDECIMAL}"
+  echo " STATUS=${UPSSTATUS}"
+
+  OLDUPSVOLTAGE=${UPSVOLTDECIMAL}   
+  # Wait
+  sleep 180;
+ done

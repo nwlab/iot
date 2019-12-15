@@ -8,3 +8,10 @@ config BR2SM_PROJECT_NAME
 
 	source "../package/analogclock/Config.in"
 	source "../package/dashboard/Config.in"
+	source "../package/433utils/Config.in"
+
+menu "Genie Audio and video applications"
+	source "../package/festival/Config.in"
+	source "../package/pocketsphinx/Config.in"
+	source "../package/sphinxbase2/Config.in"
+endmenu

@@ -3,4 +3,7 @@
 	url = git://git.buildroot.net/buildroot
 [submodule "board/dacha/rootfs_overlay_priv"]
 	path = board/dacha/rootfs_overlay_priv
-	url = git@192.168.1.158:nightworker/dacha_rootfs_overlay.git
+	url = git@192.168.10.158:nightworker/dacha_rootfs_overlay.git
+[submodule "board/genie/rootfs_overlay_priv"]
+	path = board/genie/rootfs_overlay_priv
+	url = git@192.168.10.158:nightworker/genie_rootfs_overlay.git

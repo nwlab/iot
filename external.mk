@@ -1,3 +1,2 @@
 # Makefiles used by all subprojects
-include ../package/analogclock/analogclock.mk
-include ../package/dashboard/dashboard.mk
+include $(sort $(wildcard ../package/*/*.mk))

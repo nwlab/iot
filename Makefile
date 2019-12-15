@@ -15,6 +15,6 @@
 
 
 #Makefile for the anonymous (default) project
-PROJECT_NAME := dacha
+PROJECT_NAME := genie
 
 include common.mk

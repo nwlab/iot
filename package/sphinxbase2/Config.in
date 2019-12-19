@@ -1,5 +1,0 @@
-config BR2_PACKAGE_SPHINXBASE2
-	bool "sphinxbase"
-	default y
-	help
-	  voice recognition library thing.

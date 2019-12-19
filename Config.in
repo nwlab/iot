@@ -10,8 +10,11 @@ config BR2SM_PROJECT_NAME
 	source "../package/dashboard/Config.in"
 	source "../package/433utils/Config.in"
 
-menu "Genie Audio and video applications"
+menu "Genie speach applications"
 	source "../package/festival/Config.in"
 	source "../package/pocketsphinx/Config.in"
-	source "../package/sphinxbase2/Config.in"
+    source "../package/picotts/Config.in"
+    source "../package/mplayer/Config.in"
+    source "../package/python-PyAudio/Config.in"
+    source "../package/python-SpeechRecognition/Config.in"
 endmenu

@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PICOTTS
+   bool "picotts"
+   select BR2_PACKAGE_POPT
+   help
+     PicoTTS: text-to-speech voice synthesizer from Android AOSP.
+     It is lightweight and sounds quite good and natural.
+     PicoTTS supports languages: English (British and American),
+     Spanish, German, French and Italian.

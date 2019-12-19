@@ -1,5 +1,14 @@
 config BR2_PACKAGE_POCKETSPHINX
 	bool "pocketsphinx"
 	default y
+    select BR2_PACKAGE_SPHINXBASE
 	help
 	  pocketsphinx is apps.
+
+if BR2_PACKAGE_POCKETSPHINX
+
+config BR2_PACKAGE_POCKETSPHINX_RUS
+    bool
+	default y
+
+endif

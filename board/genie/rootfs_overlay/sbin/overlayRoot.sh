@@ -50,9 +50,29 @@
 #  To install software, run upgrades and do other changes to the raspberry setup, simply remove the init= 
 #  entry from the cmdline.txt file and reboot, make the changes, add the init= entry and reboot once more. 
 
+MAINTENANCE="no"
+MAINTENANCE_MAGIC_FILE=".maintenance"
+
 fail(){
 	echo -e "$1"
 	/bin/bash
+}
+
+read_maintenance()
+{
+  if [ -e "$1/${MAINTENANCE_MAGIC_FILE}" ]; then
+    MAINTENANCE="yes"
+  fi
+  for arg in $(cat /proc/cmdline)
+  do
+    case "$arg" in
+        maintenance=*)
+            MAINTENANCE=${arg#maintenance=}
+            ;;
+        *)
+            ;;
+    esac
+  done
 }
 
 # load module
@@ -72,10 +92,19 @@ if [ $? -ne 0 ]; then
 fi
 mkdir /mnt/lower
 mkdir /mnt/rw
-mount -t tmpfs root-rw /mnt/rw
+# mount data filesystem readonly 
+dataDev=`awk '$2 == "/data" {print $1}' /etc/fstab`
+dataMountOpt=`awk '$2 == "/data" {print $4}' /etc/fstab`
+dataFsType=`awk '$2 == "/data" {print $3}' /etc/fstab`
+#mount -t tmpfs root-rw /mnt/rw
+mount -t ${dataFsType} -o ${dataMountOpt},rw ${dataDev} /mnt/rw
+
 if [ $? -ne 0 ]; then
     fail "ERROR: could not create tempfs for upper filesystem"
 fi
+
+read_maintenance /mnt/rw
+
 mkdir -p /mnt/rw/upper
 mkdir -p /mnt/rw/work
 mkdir -p /mnt/newroot
@@ -94,7 +123,7 @@ if [ $? -gt 0 ]; then
         echo "try if fstab contains a PARTUUID definition"
         echo "$rootDevFstab" | grep 'PARTUUID=\(.*\)-\([0-9]\{2\}\)'
         if [ $? -gt 0 ]; then 
-	    fail "could not find a root filesystem device in fstab. Make sure that fstab contains a device definition or a PARTUUID entry for / or that the root filesystem has a label 'rootfs' assigned to it"
+          fail "could not find a root filesystem device in fstab. Make sure that fstab contains a device definition or a PARTUUID entry for / or that the root filesystem has a label 'rootfs' assigned to it"
         fi
         device=""
         partition=""
@@ -102,14 +131,33 @@ if [ $? -gt 0 ]; then
         rootDev=`blkid -t "PTUUID=$device" | awk -F : '{print $1}'`p$(($partition))
         blkid $rootDev
         if [ $? -gt 0 ]; then
-	    fail "The PARTUUID entry in fstab could not be converted into a valid device name. Make sure that fstab contains a device definition or a PARTUUID entry for / or that the root filesystem has a label 'rootfs' assigned to it"
+          fail "The PARTUUID entry in fstab could not be converted into a valid device name. Make sure that fstab contains a device definition or a PARTUUID entry for / or that the root filesystem has a label 'rootfs' assigned to it"
         fi
     fi
 fi
-mount -t ${rootFsType} -o ${rootMountOpt},ro ${rootDev} /mnt/lower
-if [ $? -ne 0 ]; then
-    fail "ERROR: could not ro-mount original root partition"
+if [ "$MAINTENANCE" != "yes" ]
+then
+  mount -t ${rootFsType} -o ${rootMountOpt},ro ${rootDev} /mnt/lower
+  if [ $? -ne 0 ]; then
+      fail "ERROR: could not ro-mount original root partition"
+  fi
+else
+  echo "!!!!!!!!!!WARNING!!!!!!!!!!!!"
+  echo "======MAINTENANCE MODE======="
+  mount -t tmpfs tmpfs-root /mnt/lower
+  echo "copy rootfs to ram"
+  mkdir -p /mnt/tmp
+  mount -t ${rootFsType} -o ${rootMountOpt},ro ${rootDev} /mnt/tmp
+  if [ $? -ne 0 ]; then
+      fail "ERROR: could not ro-mount original root partition"
+  fi
+  cp -a /mnt/tmp/ /mnt/lower/
+  umount /mnt/tmp
+  rmdir /mnt/tmp
+  mount -o remount,ro /mnt/lower
 fi
+
+echo "mount overlayfs"
 mount -t overlay -o lowerdir=/mnt/lower,upperdir=/mnt/rw/upper,workdir=/mnt/rw/work overlayfs-root /mnt/newroot
 if [ $? -ne 0 ]; then
     fail "ERROR: could not mount overlayFS"

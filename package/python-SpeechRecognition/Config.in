@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_SPEECHRECOGNITION
+	bool "python-SpeechRecognition"
+    select BR2_PACKAGE_PYTHON_PYAUDIO
+    select BR2_PACKAGE_FLAC
+	help
+      Library for performing speech recognition, with support for several engines and APIs, online and offline.
+
+	  https://github.com/Uberi/speech_recognition

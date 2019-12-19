@@ -1,0 +1,11 @@
+comment "python-PyAudio needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS
+
+config BR2_PACKAGE_PYTHON_PYAUDIO
+	bool "python-PyAudio"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # alsa-lib
+	select BR2_PACKAGE_PORTAUDIO
+	help
+      PyAudio provides Python bindings for PortAudio v19, the cross-platform audio I/O library
+
+	  http://people.csail.mit.edu/hubert/pyaudio/

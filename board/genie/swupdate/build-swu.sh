@@ -1,6 +1,6 @@
 #! /bin/bash
 CONTAINER_VER="1.0"
-PRODUCT_NAME="iot-software"
+PRODUCT_NAME="genie-software"
 SWUPDATE_FILES_PATH="$(dirname $0)"
 FILES="sw-description sw-description.sig"
 

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_RHVOICE
+	bool "python-RHVoice"
+	depends on BR2_PACKAGE_PYTHON3 # python-tempora
+	help
+	  Free and open source speech synthesizer
+
+	  https://github.com/techtonik/RHVoice/tree/master/src/nvda-synthDriver

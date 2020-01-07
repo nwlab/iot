@@ -1,0 +1,39 @@
+#!/bin/sh
+
+MAINTENANCE="no"
+MAINTENANCE_MAGIC_FILE="/data/.maintenance"
+
+read_maintenance()
+{
+  if [ -e "${MAINTENANCE_MAGIC_FILE}" ]; then
+    MAINTENANCE="yes"
+  fi
+  for arg in $(cat /proc/cmdline)
+  do
+    case "$arg" in
+        maintenance=*)
+            MAINTENANCE=${arg#maintenance=}
+            ;;
+        *)
+            ;;
+    esac
+  done
+}
+
+case $1 in
+    on)
+        MAINTENANCE="yes"
+        touch ${MAINTENANCE_MAGIC_FILE}
+        ;;
+    off)
+        MAINTENANCE="no"
+        rm -f ${MAINTENANCE_MAGIC_FILE}
+        ;;
+    *)
+        read_maintenance
+        echo "Maintenance : " $MAINTENANCE
+        exit 0
+        ;;
+esac
+
+echo "Set maintenance mode to : " $MAINTENANCE

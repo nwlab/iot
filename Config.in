@@ -17,4 +17,7 @@ menu "Genie speach applications"
     source "../package/mplayer/Config.in"
     source "../package/python-PyAudio/Config.in"
     source "../package/python-SpeechRecognition/Config.in"
+    source "../package/python-pydub/Config.in"
+    source "../package/python-pyowm/Config.in"
+    source "../package/wm8960/Config.in"
 endmenu

@@ -53,9 +53,26 @@
 MAINTENANCE="no"
 MAINTENANCE_MAGIC_FILE=".maintenance"
 
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+MOUNT="/bin/mount"
+UMOUNT="/bin/umount"
+
+ROOT_DISK=""
+
 fail(){
 	echo -e "$1"
 	/bin/bash
+}
+
+early_setup() {
+    mkdir -p /proc /sys /run /var/run
+    mount -t proc proc /proc
+    mount -t sysfs sysfs /sys
+    mount -t devtmpfs none /dev
+
+    # support modular kernel
+    modprobe isofs 2> /dev/null
 }
 
 read_maintenance()
@@ -151,12 +168,15 @@ else
   if [ $? -ne 0 ]; then
       fail "ERROR: could not ro-mount original root partition"
   fi
-  cp -a /mnt/tmp/ /mnt/lower/
+  # Copy root content to RAM
+  cp -rfa /mnt/tmp/* /mnt/lower/
   umount /mnt/tmp
   rmdir /mnt/tmp
+  # Lower layer will be read-only
   mount -o remount,ro /mnt/lower
 fi
 
+# Mounting overlayfs
 echo "mount overlayfs"
 mount -t overlay -o lowerdir=/mnt/lower,upperdir=/mnt/rw/upper,workdir=/mnt/rw/work overlayfs-root /mnt/newroot
 if [ $? -ne 0 ]; then

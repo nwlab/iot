@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_PYOWM
+	bool "python-pyowm"
+	depends on BR2_PACKAGE_PYTHON3 # python-tempora
+	help
+	  A Python wrapper around OpenWeatherMap web APIs
+
+	  http://github.com/csparpa/pyowm

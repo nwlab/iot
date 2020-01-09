@@ -1187,4 +1187,6 @@ dtparam=pwr_led_trigger=heartbeat
 #dtparam=pwr_led_gpio=35
 
 ## Disable RPi3 bluetooth to enable serial console on UART0
-dtoverlay=pi3-disable-bt
+# dtoverlay=pi3-disable-bt
+# Enable UART
+enable_uart=1

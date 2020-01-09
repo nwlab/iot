@@ -1,0 +1,72 @@
+diff -Nur snowboy-ba972b07f6b592d5bd2312b571685b85b6528a1e.orig/swig/Python3/Makefile snowboy-ba972b07f6b592d5bd2312b571685b85b6528a1e/swig/Python3/Makefile
+--- snowboy-ba972b07f6b592d5bd2312b571685b85b6528a1e.orig/swig/Python3/Makefile	2020-01-08 23:37:07.235710715 +0200
++++ snowboy-ba972b07f6b592d5bd2312b571685b85b6528a1e/swig/Python3/Makefile	2020-01-10 00:33:38.428975273 +0200
+@@ -21,42 +21,19 @@
+ SNOWBOYDETECTSWIGCC = snowboy-detect-swig.cc
+ SNOWBOYDETECTSWIGLIBFILE = _snowboydetect.so
+ 
+-TOPDIR := ../../
+-CXXFLAGS := -I$(TOPDIR) -O3 -fPIC -D_GLIBCXX_USE_CXX11_ABI=0
+-LDFLAGS :=
+-
+-ifeq ($(shell uname), Darwin)
+-  CXX := clang++
+-  PYINC := $(shell python3-config --includes)
+-  # If you use Anaconda, the command `python3-config` will not return full path.
+-  # In this case, please manually specify the full path like the following:
+-  # PYLIBS := -L/Users/YOURNAME/anaconda3/lib/python3.6/config-3.6m-darwin -lpython3.6m -ldl -framework CoreFoundation
+-  PYLIBS := $(shell python3-config --ldflags)
+-  SWIGFLAGS := -bundle -flat_namespace -undefined suppress
+-  LDLIBS := -lm -ldl -framework Accelerate
+-  SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/osx/libsnowboy-detect.a
+-else
+-  CXX := g++
+-  PYINC := $(shell python3-config --cflags)
+-  PYLIBS := $(shell python3-config --ldflags)
+-  SWIGFLAGS := -shared
+-  CXXFLAGS += -std=c++0x
+-  # Make sure you have Atlas installed. You can statically link Atlas if you
+-  # would like to be able to move the library to a machine without Atlas.
+-  ifneq ("$(ldconfig -p | grep lapack_atlas)","")
+-    LDLIBS := -lm -ldl -lf77blas -lcblas -llapack_atlas -latlas
+-  else
+-    LDLIBS := -lm -ldl -lf77blas -lcblas -llapack -latlas
+-  endif
+-  SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/ubuntu64/libsnowboy-detect.a
+-  ifneq (,$(findstring arm,$(shell uname -m)))
+-    SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/rpi/libsnowboy-detect.a
+-    ifeq ($(findstring fc,$(shell uname -r)), fc)
+-      SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/fedora25-armv7/libsnowboy-detect.a
+-      LDLIBS := -L/usr/lib/atlas -lm -ldl -lsatlas
+-    endif
+-  endif
+-endif
++TOPDIR := $(SOURCE_DIR)
++_CXXFLAGS := -I$(TOPDIR) -O3 -fPIC -D_GLIBCXX_USE_CXX11_ABI=0
++_LDFLAGS :=
++
++CXX := g++
++PYINC := $(PYTHON_INCLUDE)
++PYLIBS := $(PYTHON_LIBS)
++SWIGFLAGS := -shared
++_CXXFLAGS += -std=c++0x
++# Make sure you have Atlas installed. You can statically link Atlas if you
++# would like to be able to move the library to a machine without Atlas.
++LDLIBS := -lm -ldl $(ATLAS_LIBS)
++SNOWBOYDETECTLIBFILE = $(TOPDIR)/lib/rpi/libsnowboy-detect.a
+ 
+ all: $(SNOWBOYSWIGLIBFILE) $(SNOWBOYDETECTSWIGLIBFILE)
+ 
+@@ -67,10 +44,10 @@
+ 	$(SWIG) -I$(TOPDIR) -c++ -python -o $(SNOWBOYDETECTSWIGCC) $(SNOWBOYDETECTSWIGITF)
+ 
+ $(SNOWBOYDETECTSWIGOBJ): $(SNOWBOYDETECTSWIGCC)
+-	$(CXX) $(PYINC) $(CXXFLAGS) -c $(SNOWBOYDETECTSWIGCC)
++	$(CXX) $(PYINC) $(_CXXFLAGS) -I$(TOPDIR) -c $(SNOWBOYDETECTSWIGCC)
+ 
+ $(SNOWBOYDETECTSWIGLIBFILE): $(SNOWBOYDETECTSWIGOBJ) $(SNOWBOYDETECTLIBFILE)
+-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $(SWIGFLAGS) $(SNOWBOYDETECTSWIGOBJ) \
++	$(CXX) $(_CXXFLAGS) $(_LDFLAGS) $(SWIGFLAGS) $(SNOWBOYDETECTSWIGOBJ) \
+ 	$(SNOWBOYDETECTLIBFILE) $(PYLIBS) $(LDLIBS) -o $(SNOWBOYDETECTSWIGLIBFILE)
+ 
+ clean:

@@ -9,6 +9,7 @@ cp ${BR2_EXTERNAL}/board/${BOARD_NAME}/config.txt ${BINARIES_DIR}/config.txt
 cp ${BR2_EXTERNAL}/board/${BOARD_NAME}/cmdline.txt ${BINARIES_DIR}/cmdline.txt
 
 cp ${BINARIES_DIR}/zImage ${BINARIES_DIR}/kernel7.img
+cp ${BINARIES_DIR}/zImage ${BINARIES_DIR}/kernel.img
 
 rm -rf "${GENIMAGE_TMP}"
 

@@ -11,6 +11,7 @@ config BR2SM_PROJECT_NAME
 	source "../package/433utils/Config.in"
 
 menu "Genie speach applications"
+	source "../package/genie_assistant/Config.in"
 	source "../package/festival/Config.in"
 	source "../package/pocketsphinx/Config.in"
     source "../package/picotts/Config.in"
@@ -19,5 +20,7 @@ menu "Genie speach applications"
     source "../package/python-SpeechRecognition/Config.in"
     source "../package/python-pydub/Config.in"
     source "../package/python-pyowm/Config.in"
+    source "../package/python-pocketsphinx/Config.in"
     source "../package/wm8960/Config.in"
+    source "../package/snowboy/Config.in"
 endmenu

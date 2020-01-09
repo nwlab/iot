@@ -1,0 +1,7 @@
+config BR2_PACKAGE_SNOWBOY
+	bool "snowboy"
+	depends on BR2_PACKAGE_PYTHON3
+	help
+      DNN based hotword and wake word detection toolkit 
+
+      https://snowboy.kitt.ai

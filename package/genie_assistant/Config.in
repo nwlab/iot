@@ -1,0 +1,8 @@
+config BR2_PACKAGE_GENIE_ASSISTANT
+	bool "genie_assistant"
+	depends on BR2_PACKAGE_PYTHON3
+	select BR2_PACKAGE_SNOWBOY
+	help
+	  genie_assistant
+
+	  https://github.com/nwlab/genie_assistant

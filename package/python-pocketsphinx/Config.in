@@ -1,0 +1,10 @@
+config BR2_PACKAGE_PYTHON_POCKETSPHINX
+	bool "python-pocketsphinx"
+	depends on BR2_PACKAGE_PYTHON3 # python-tempora
+	select BR2_PACKAGE_POCKETSPHINX
+	select BR2_PACKAGE_SPHINXBASE
+	select BR2_PACKAGE_PULSEAUDIO
+	help
+	  Python interface to CMU Sphinxbase and Pocketsphinx libraries https://pypi.python.org/pypi/pocketsphinx
+
+	  https://github.com/bambocher/pocketsphinx-python

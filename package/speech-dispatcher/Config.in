@@ -1,0 +1,9 @@
+config BR2_PACKAGE_SPEECH_DISPATCHER
+	bool "speech-dispatcher"
+    select BR2_PACKAGE_LIBDOTCONF
+    select BR2_PACKAGE_LIBSNDFILE
+	help
+	  Common interface to speech synthesis
+
+	  https://github.com/brailcom/speechd
+

@@ -1070,7 +1070,7 @@ dtparam=audio=on
 ##
 ##     Default off.
 ##
-#dtparam=i2c_arm=off
+dtparam=i2c_arm=on
 
 ## i2c_vc
 ##     Enable the i2c interface
@@ -1100,14 +1100,14 @@ dtparam=audio=on
 ##
 ##     Default off.
 ##
-#dtparam=i2s=off
+dtparam=i2s=on
 
 ## spi
 ##     Set to "on" to enable the spi interfaces
 ##
 ##     Default off.
 ##
-#dtparam=spi=off
+dtparam=spi=on
 
 ## random
 ##     Set to "on" to enable the hardware random
@@ -1190,3 +1190,5 @@ dtparam=pwr_led_trigger=heartbeat
 # dtoverlay=pi3-disable-bt
 # Enable UART
 enable_uart=1
+dtoverlay=i2s-mmap
+dtoverlay=seeed-2mic-voicecard

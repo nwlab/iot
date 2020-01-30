@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# seeed-voicecard
+#
+
+SEEED_VOICECARD_BIN="/usr/bin/seeed-voicecard"
+
+start() {
+		printf "Seeed Voicecard service ... "
+		$SEEED_VOICECARD_BIN
+		if [ $? != 0 ]; then
+			echo "FAIL"
+			exit 1
+		fi
+		echo "OK"
+}
+
+stop() {
+		echo "OK"
+}
+
+restart() {
+	stop
+	sleep 1
+	start
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  restart)
+	restart
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	;;
+esac

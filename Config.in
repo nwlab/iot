@@ -23,4 +23,6 @@ menu "Genie speach applications"
     source "../package/python-pocketsphinx/Config.in"
     source "../package/wm8960/Config.in"
     source "../package/snowboy/Config.in"
+    source "../package/speech-dispatcher/Config.in"
+    source "../package/libdotconf/Config.in"
 endmenu

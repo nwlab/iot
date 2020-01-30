@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+
+load_drivers()
+{
+    while IFS= read -r line; do
+        modprobe $line
+    done < "/etc/modules.conf"
+}
+
+case "$1" in
+    start)
+        printf "Loading modules "
+        load_drivers
+        echo ds3231 0x68 > /sys/class/i2c-adapter/i2c-0/new_device
+        echo ds2482 0x18 > /sys/bus/i2c/devices/i2c-0/new_device
+        udevadm trigger
+        echo "OK"
+        ;;
+    stop)
+        ;;
+    restart|reload)
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac

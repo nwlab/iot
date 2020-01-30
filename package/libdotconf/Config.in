@@ -1,0 +1,7 @@
+config BR2_PACKAGE_LIBDOTCONF
+	bool "libdotconf"
+	help
+	  dot.conf configuration file parser
+
+	  http://github.com/williamh/dotconf
+

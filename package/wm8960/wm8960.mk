@@ -13,8 +13,10 @@ WM8960_MODULE_MAKE_OPTS = \
 	KVER=$(LINUX_VERSION_PROBED) \
 	KSRC=$(LINUX_DIR)
 
-WM8960_BINS = rtl8723bs_ap_wowlan.bin rtl8723bs_wowlan.bin \
-	rtl8723bs_bt.bin rtl8723bs_nic.bin
+define WM8960_INSTALL_TARGET_CMDS
+	$(INSTALL) -m 0755 -D $(@D)/seeed-voicecard $(TARGET_DIR)/usr/bin/seeed-voicecard
+	$(INSTALL) -D -m 0755 $(TOPDIR)/../package/wm8960/S97seeed-voicecard $(TARGET_DIR)/etc/init.d/S97seeed-voicecard
+endef
 
 define WM8960_INSTALL_DTB_OVERLAYS
 	for ovldtb in  $(@D)/*.dtbo; do \

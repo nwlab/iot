@@ -2,6 +2,7 @@ config BR2_PACKAGE_GENIE_ASSISTANT
 	bool "genie_assistant"
 	depends on BR2_PACKAGE_PYTHON3
 	select BR2_PACKAGE_SNOWBOY
+    select BR2_PACKAGE_SPEECH_DISPATCHER
 	help
 	  genie_assistant
 

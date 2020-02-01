@@ -9,7 +9,7 @@ PYTHON_POCKETSPHINX_SITE = $(call github,bambocher,pocketsphinx-python,$(PYTHON_
 PYTHON_POCKETSPHINX_SETUP_TYPE = setuptools
 PYTHON_POCKETSPHINX_LICENSE = GPL-2.0+
 PYTHON_POCKETSPHINX_LICENSE_FILES = COPYING
-PYTHON_POCKETSPHINX_DEPENDENCIES = host-python-setuptools-scm pocketsphinx sphinxbase pulseaudio
+PYTHON_POCKETSPHINX_DEPENDENCIES = host-python-setuptools-scm pocketsphinx sphinxbase alsa-lib
 
 define PYTHON_POCKETSPHINX_UPDATE_DEPS
 	rm -rf $(@D)/deps/pocketsphinx $(@D)/deps/sphinxbase

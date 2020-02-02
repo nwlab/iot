@@ -12,6 +12,8 @@ PICOTTS_LICENSE = Apache-2.0
 # dependencies
 PICOTTS_DEPENDENCIES = popt
 
+PICOTTS_INSTALL_STAGING = YES
+
 # extract
 define PICOTTS_EXTRACT_CMDS
    tar xf $(PICOTTS_DL_DIR)/picotts-$(PICOTTS_VERSION).tar.gz -C $(@D) \

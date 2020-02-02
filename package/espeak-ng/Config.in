@@ -1,0 +1,13 @@
+config BR2_PACKAGE_ESPEAK_NG
+	bool "espeak-ng"
+	depends on BR2_INSTALL_LIBSTDCPP
+	depends on BR2_USE_WCHAR
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_USE_MMU # fork()
+	# does not properly support building only a static version
+	depends on !BR2_STATIC_LIBS
+	depends on !BR2_PACKAGE_ESPEAK
+	help
+	  eSpeak NG is an open source speech synthesizer that supports 109 languages and accents.
+
+	  https://github.com/espeak-ng/espeak-ng

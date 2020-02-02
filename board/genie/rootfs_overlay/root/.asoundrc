@@ -1,0 +1,16 @@
+pcm.!default {
+  type asym
+  playback.pcm {
+    type plug
+    slave.pcm "hw:seeed2micvoicec"
+  }
+  capture.pcm {
+    type plug
+    slave.pcm "hw:seeed2micvoicec"
+  }
+}
+
+ctl.!default {
+        type hw
+        card 0
+}

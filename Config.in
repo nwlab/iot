@@ -25,4 +25,5 @@ menu "Genie speach applications"
     source "../package/snowboy/Config.in"
     source "../package/speech-dispatcher/Config.in"
     source "../package/libdotconf/Config.in"
+    source "../package/espeak-ng/Config.in"
 endmenu

@@ -1,0 +1,14 @@
+diff -Nur rhvoice-9ee7d90e0319b3dc8f1c869746b0ca27a1f1aa28.orig/SConstruct rhvoice-9ee7d90e0319b3dc8f1c869746b0ca27a1f1aa28/SConstruct
+--- rhvoice-9ee7d90e0319b3dc8f1c869746b0ca27a1f1aa28.orig/SConstruct	2020-02-02 14:45:19.212703962 +0200
++++ rhvoice-9ee7d90e0319b3dc8f1c869746b0ca27a1f1aa28/SConstruct	2020-02-02 14:47:02.772722901 +0200
+@@ -181,6 +181,10 @@
+     env_args["package_name"]="RHVoice"
+     env_args["CPPDEFINES"]=[("RHVOICE","1")]
+     env=Environment(**env_args)
++    env.Replace(CXX = "TARGET_CXX")
++    env.Replace(CC = "TARGET_CC")
++    env.Replace(CPP = "TARGET_CPP")
++    env.Replace(LINK = "TARGET_CXX")
+     if env["dev"]:
+         env["prefix"]=os.path.abspath("local")
+         env["RPATH"]=env.Dir("$libdir").abspath

@@ -1,0 +1,20 @@
+diff -Nur python-pocketsphinx-769492da47e41b71e3dd57a6b033fbba79e57032.orig/setup.py python-pocketsphinx-769492da47e41b71e3dd57a6b033fbba79e57032/setup.py
+--- python-pocketsphinx-769492da47e41b71e3dd57a6b033fbba79e57032.orig/setup.py	2020-02-02 15:49:41.437214058 +0200
++++ python-pocketsphinx-769492da47e41b71e3dd57a6b033fbba79e57032/setup.py	2020-02-02 15:50:29.945226526 +0200
+@@ -248,16 +248,6 @@
+ elif sys.platform.startswith('linux'):
+     ext_modules.extend([
+         Extension(
+-            name='sphinxbase._ad_pulse',
+-            sources=['swig/sphinxbase/ad_pulse.i', 'deps/sphinxbase/src/libsphinxad/ad_pulse.c'],
+-            swig_opts=sb_swig_opts,
+-            include_dirs=sb_include_dirs,
+-            libraries=['pulse', 'pulse-simple'],
+-            define_macros=define_macros,
+-            extra_compile_args=extra_compile_args,
+-            extra_link_args=extra_link_args
+-        ),
+-        Extension(
+             name='sphinxbase._ad_alsa',
+             sources=['swig/sphinxbase/ad_alsa.i', 'deps/sphinxbase/src/libsphinxad/ad_alsa.c'],
+             swig_opts=sb_swig_opts,

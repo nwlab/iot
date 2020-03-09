@@ -1,6 +1,7 @@
 config BR2_PACKAGE_SNOWBOY
 	bool "snowboy"
 	depends on BR2_PACKAGE_PYTHON3
+    select BR2_PACKAGE_ATLAS
 	help
       DNN based hotword and wake word detection toolkit 
 

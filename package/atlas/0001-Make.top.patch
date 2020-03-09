@@ -1,0 +1,10 @@
+--- atlas-3.10.3.orig/Make.top	2016-07-28 22:42:59.000000000 +0300
++++ atlas-3.10.3/Make.top	2020-02-17 15:14:53.519914400 +0200
+@@ -3,7 +3,6 @@
+ error_report:
+ 	- uname -a 2>&1 >> bin/INSTALL_LOG/ERROR.LOG
+ 	- $(KC) -v 2>&1  >> bin/INSTALL_LOG/ERROR.LOG
+-	- $(KC) -V 2>&1  >> bin/INSTALL_LOG/ERROR.LOG
+ 	- $(KC) --version 2>&1  >> bin/INSTALL_LOG/ERROR.LOG
+ 	$(TAR) cf error_$(ARCH).tar Make.inc bin/INSTALL_LOG/*
+ 	$(BZIP) error_$(ARCH).tar

@@ -1,6 +1,24 @@
 config BR2_PACKAGE_ATLAS
    bool "atlas"
+   select BR2_TOOLCHAIN_BUILDROOT_FORTRAN
    help
       Automatically Tuned Linear Algebra Software (ATLAS)
       
       http://math-atlas.sourceforge.net/
+
+if BR2_PACKAGE_ATLAS
+
+config BR2_PACKAGE_ATLAS_PREBUILD
+	bool "Use prebuild binary libraries"
+	default y
+
+if !BR2_PACKAGE_ATLAS_PREBUILD
+
+config BR2_PACKAGE_ATLAS_REMOTE_IP
+	string "Remote test device IP address"
+	default "192.168.10.178"
+
+endif
+
+endif
+

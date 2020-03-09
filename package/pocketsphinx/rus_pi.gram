@@ -1,0 +1,6 @@
+#JSGF V1.0;
+grammar PI;
+public <cmd> = <name> <obj> <action>;
+<name> = [ Джин | Джинни ];
+<obj> = ( лампу | розетку | отчет);
+<action> = ( погаси | включи | показывай);

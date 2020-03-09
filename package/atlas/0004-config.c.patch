@@ -1,0 +1,11 @@
+--- atlas-3.10.3.orig/CONFIG/src/config.c	2016-07-28 22:43:00.000000000 +0300
++++ atlas-3.10.3/CONFIG/src/config.c	2020-02-15 23:13:08.250095773 +0200
+@@ -1305,6 +1305,8 @@
+             &outfile, &srcdir, &bindir, &bozol1, &archdef, &ieee, &latune,
+             &nof77, &nocygwin, &thrchk, &lapackref, &f2cdefs, &cdefs, &pmake,
+             &flapack, &smaflags, &dmaflags, &f77libs, &ADd, &l2size, &targ);
++
++   verb = 2;
+    if (targ)
+       sprintf(targarg, "-T %s", targ);
+    else

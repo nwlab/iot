@@ -1,0 +1,62 @@
+--- atlas-3.10.3.orig/CONFIG/src/backend/cpuid.S	2016-07-28 22:43:01.000000000 +0300
++++ atlas-3.10.3/CONFIG/src/backend/cpuid.S	2020-02-15 23:13:08.250095773 +0200
+@@ -8,7 +8,6 @@
+ # NOTE: cpuid overwrites eax, ebx, ecx, and edx, takes eax as input
+ #       -- save ebx
+ #
+-#ifdef ATL_GAS_x8664
+         movq    %rbx, -8(%rsp)
+ #
+ #       Load input reg, and call cpuid
+@@ -25,51 +24,3 @@
+ 
+         movq    -8(%rsp), %rbx
+         ret
+-#elif defined(ATL_GAS_WOW64)
+-        sub $16, %rsp
+-        movq    %rbx, (%rsp)
+-        movq    %rcx, %r8    /* r8=out */
+-#
+-#       Load input reg, and call cpuid
+-#
+-        movl    %edx, %eax
+-        cpuid
+-#
+-#       Fill in array (out) entries
+-#
+-        movl    %eax, (%r8)
+-        movl    %ebx, 4(%r8)
+-        movl    %ecx, 8(%r8)
+-        movl    %edx, 12(%r8)
+-
+-        movq    (%rsp), %rbx
+-        add $16, %rsp
+-        ret
+- #else
+-#
+-#       Prologue
+-#
+-        subl    $8, %esp
+-        movl    %ebx, (%esp)
+-        movl    %edi, 4(%esp)
+-#
+-#       Load input reg, and call cpuid
+-#
+-        movl    16(%esp), %eax
+-        cpuid
+-#
+-#       Load address of output array, and fill in its entries
+-#
+-        movl    12(%esp), %edi
+-        movl    %eax, (%edi)
+-        movl    %ebx, 4(%edi)
+-        movl    %ecx, 8(%edi)
+-        movl    %edx, 12(%edi)
+-#
+-#       Epilogue
+-#
+-        movl    (%esp), %ebx
+-        movl    4(%esp), %edi
+-        addl    $8, %esp
+-        ret
+-#endif

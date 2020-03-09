@@ -10,7 +10,7 @@ SNOWBOY_SITE = $(call github,Kitt-AI,snowboy,$(SNOWBOY_VERSION))
 SNOWBOY_LICENSE = Apache-2.0
 
 # dependencies
-SNOWBOY_DEPENDENCIES = host-python3 python3 host-swig
+SNOWBOY_DEPENDENCIES = host-python3 python3 host-swig atlas
 
 ifeq ($(BR2_PACKAGE_PYTHON3),y)
 SNOWBOY_PYTHON_DIR = python$(PYTHON3_VERSION_MAJOR)
@@ -19,7 +19,7 @@ SNOWBOY_PYTHON = \
 	PYTHON_CONFIG="$(STAGING_DIR)/usr/bin/python3-config" \
 	PYTHON_INCLUDE="`$(STAGING_DIR)/usr/bin/python3-config --cflags`" \
 	PYTHON_LIBS="`$(STAGING_DIR)/usr/bin/python3-config --ldflags`" \
-    ATLAS_LIBS="-Wl,--whole-archive -L$(TOPDIR)/../package/snowboy/atlas/lib \
+    ATLAS_LIBS="-Wl,--whole-archive -L$(ATLAS_LIBS) \
                 -latlas \
                 -lcblas \
                 -lf77blas \

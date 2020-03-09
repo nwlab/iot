@@ -26,4 +26,7 @@ menu "Genie speach applications"
     source "../package/speech-dispatcher/Config.in"
     source "../package/libdotconf/Config.in"
     source "../package/espeak-ng/Config.in"
+    source "../package/rhvoice/Config.in"
+    source "../package/alsa-plugins/Config.in"
+    source "../package/atlas/Config.in"
 endmenu

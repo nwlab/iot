@@ -1,0 +1,58 @@
+diff -Nur atlas-3.10.3.orig/CONFIG/src/Makefile atlas-3.10.3/CONFIG/src/Makefile
+--- atlas-3.10.3.orig/CONFIG/src/Makefile	2020-03-09 21:49:54.711296432 +0200
++++ atlas-3.10.3/CONFIG/src/Makefile	2020-03-09 21:52:29.211354490 +0200
+@@ -485,31 +485,31 @@
+ DoNothing:
+ 
+ make_subdirs:
+-	mkdir src bin tune interfaces
+-	cd src ; mkdir testing auxil blas lapack pthreads threads
++	mkdir -p src bin tune interfaces
++	cd src ; mkdir -p testing auxil blas lapack pthreads threads
+ 	cd src/blas ; \
+-           mkdir f77reference reference gemv ger gemm kbmm \
++           mkdir -p f77reference reference gemv ger gemm kbmm \
+                  level1 level2 level3 pklevel3
+-	cd src/blas/reference ; mkdir level1 level2 level3
+-	cd src/blas/level2 ; mkdir kernel
+-	cd src/blas/pklevel3 ; mkdir gpmm sprk
+-	cd src/blas/level3 ; mkdir rblas kernel
+-	cd src/pthreads ; mkdir blas misc
+-	cd src/pthreads/blas ; mkdir level1 level2 level3
+-	cd src/threads ; mkdir blas lapack
+-	cd src/threads/blas ; mkdir level3 level2
+-	cd tune ; mkdir blas sysinfo lapack threads
+-	cd tune/blas ; mkdir gemm gemv ger level1 level3
+-	cd interfaces ; mkdir blas lapack
+-	cd interfaces/lapack ; mkdir C F77
+-	cd interfaces/lapack/C ; mkdir src testing
+-	cd interfaces/lapack/F77 ; mkdir src testing
+-	cd interfaces/blas ; mkdir C F77
+-	cd interfaces/blas/C ; mkdir src testing
+-	cd interfaces/blas/F77 ; mkdir src testing
+-	cd interfaces/lapack ; mkdir C2F
+-	cd interfaces/lapack/C2F ; mkdir src
+-	mkdir ARCHS
++	cd src/blas/reference ; mkdir -p level1 level2 level3
++	cd src/blas/level2 ; mkdir -p kernel
++	cd src/blas/pklevel3 ; mkdir -p gpmm sprk
++	cd src/blas/level3 ; mkdir -p rblas kernel
++	cd src/pthreads ; mkdir -p blas misc
++	cd src/pthreads/blas ; mkdir -p level1 level2 level3
++	cd src/threads ; mkdir -p blas lapack
++	cd src/threads/blas ; mkdir -p level3 level2
++	cd tune ; mkdir -p blas sysinfo lapack threads
++	cd tune/blas ; mkdir -p gemm gemv ger level1 level3
++	cd interfaces ; mkdir -p blas lapack
++	cd interfaces/lapack ; mkdir -p C F77
++	cd interfaces/lapack/C ; mkdir -p src testing
++	cd interfaces/lapack/F77 ; mkdir -p src testing
++	cd interfaces/blas ; mkdir -p C F77
++	cd interfaces/blas/C ; mkdir -p src testing
++	cd interfaces/blas/F77 ; mkdir -p src testing
++	cd interfaces/lapack ; mkdir -p C2F
++	cd interfaces/lapack/C2F ; mkdir -p src
++	mkdir -p ARCHS
+ 
+ #
+ # Simple test returns error if directory doesn't exist

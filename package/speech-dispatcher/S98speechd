@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case "$1" in
+start)
+	printf "Starting speech-dispatcher: "
+    speech-dispatcher -d
+	;;
+stop)
+	;;
+restart|reload)
+	$0 stop
+	$0 start
+	;;
+*)
+	echo "Usage: $0 {start|stop|restart|reload}"
+	exit 1
+esac
+
+exit 0

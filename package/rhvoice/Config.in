@@ -1,0 +1,6 @@
+config BR2_PACKAGE_RHVOICE
+	bool "RHVoice"
+	help
+	  RHVoice is a free and open source speech synthesizer for Russian language.
+
+	  https://github.com/Olga-Yakovleva/RHVoice

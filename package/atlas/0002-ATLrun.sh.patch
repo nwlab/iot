@@ -1,0 +1,26 @@
+diff -Nur atlas-3.10.3.orig/CONFIG/src/ATLrun.sh atlas-3.10.3/CONFIG/src/ATLrun.sh
+--- atlas-3.10.3.orig/CONFIG/src/ATLrun.sh	2016-07-28 22:43:00.000000000 +0300
++++ atlas-3.10.3/CONFIG/src/ATLrun.sh	2020-03-09 20:12:24.294314465 +0200
+@@ -1,12 +1,13 @@
+ #!/bin/sh
+-atldir=$1
+-shift
+-$atldir/$*
+-#mach=MyMach
+-#rdir=/tmp
+ #atldir=$1
+ #shift
+-#exe=$1
+-#shift
+-#scp $atldir/$exe $mach:$(rdir)/$exe
+-#ssh $mach "cd $rdir ; ./$exe $*"
++#$atldir/$*
++mach=root@XXX.XXX.XXX.XXX
++rdir=/tmp
++atldir=$1
++shift
++exe=$1
++shift
++scp $atldir/$exe $mach:$rdir/$exe
++ssh $mach "cd $rdir ; mkdir -p res; touch res/empty; ./$exe $*"
++scp $mach:$rdir/res/* $atldir/res/

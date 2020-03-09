@@ -2,8 +2,37 @@ config BR2_PACKAGE_SPEECH_DISPATCHER
 	bool "speech-dispatcher"
     select BR2_PACKAGE_LIBDOTCONF
     select BR2_PACKAGE_LIBSNDFILE
+	select BR2_PACKAGE_LIBTOOL
 	help
 	  Common interface to speech synthesis
 
 	  https://github.com/brailcom/speechd
 
+if BR2_PACKAGE_SPEECH_DISPATCHER
+
+comment "modules"
+
+config BR2_PACKAGE_SPEECH_DISPATCHER_ESPEAK
+	bool "espeak"
+	depends on BR2_PACKAGE_ESPEAK
+
+config BR2_PACKAGE_SPEECH_DISPATCHER_RHVOICE
+	bool "RHVoice"
+	depends on BR2_PACKAGE_RHVOICE
+
+config BR2_PACKAGE_SPEECH_DISPATCHER_ESPEAK_NG
+	bool "espeak-ng"
+	depends on BR2_PACKAGE_ESPEAK_NG
+
+config BR2_PACKAGE_SPEECH_DISPATCHER_PICOTTS
+	bool "pico"
+	depends on BR2_PACKAGE_PICOTTS
+
+config BR2_PACKAGE_SPEECH_DISPATCHER_FESTIVAL
+	bool "festival"
+	depends on BR2_PACKAGE_FESTIVAL
+
+config BR2_PACKAGE_SPEECH_DISPATCHER_CICERO
+	bool "cicero"
+
+endif

@@ -1,0 +1,101 @@
+diff -Nur atlas-3.10.3.orig/CONFIG/src/Makefile atlas-3.10.3/CONFIG/src/Makefile
+--- atlas-3.10.3.orig/CONFIG/src/Makefile	2020-03-09 20:15:57.170307456 +0200
++++ atlas-3.10.3/CONFIG/src/Makefile	2020-03-09 20:18:11.738303822 +0200
+@@ -2,28 +2,29 @@
+ SRCdir = $(TOPdir)/CONFIG/src
+ INCdir = $(TOPdir)/CONFIG/include
+ mydir = $(BLDdir)
+-atlrun = atlas_run
++atlrun = atlas_runX
+ INCFLAGS = -I$(INCdir)
+ MYFLAGS =
+ CCFLAGS = $(INCFLAGS) $(MYFLAGS) $(CFLAGS)
+-XCC = $(CC)
++XCC = /usr/bin/gcc
+ XCFLAGS = $(CCFLAGS)
+ LIBS =
+-args =
++args = -v 1
+ rdir = /tmp
+ arch=
++targ= "root@XXX.XXX.XXX.XXX"
+ BUNZIP = bunzip2
+ TAR = tar
+ wind=$(BLDdir)
+ 
+ all : build
+-xconfig : $(SRCdir)/config.c atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xconfig $(SRCdir)/config.c atlconf_misc.o $(LIBS)
+-xspew : $(SRCdir)/SpewMakeInc.c atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xspew $(SRCdir)/SpewMakeInc.c atlconf_misc.o \
++xconfig : $(SRCdir)/config.c atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xconfig $(SRCdir)/config.c atlconf_misc_X.o $(LIBS)
++xspew : $(SRCdir)/SpewMakeInc.c atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xspew $(SRCdir)/SpewMakeInc.c atlconf_misc_X.o \
+                $(LIBS)
+-xisgcc : $(SRCdir)/IsGcc.c atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o $@ $(SRCdir)/IsGcc.c atlconf_misc.o $(LIBS)
++xisgcc : $(SRCdir)/IsGcc.c atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o $@ $(SRCdir)/IsGcc.c atlconf_misc_X.o $(LIBS)
+ mgwgfortran : $(SRCdir)/mgwcmp.c
+ 	$(XCC) $(XCCFLAGS) "-DDEFDF=$(cmppath)" -o $@ $(SRCdir)/mgwcmp.c
+ mgwgcc : $(SRCdir)/mgwcmp.c
+@@ -45,27 +46,27 @@
+ 	cp $(SRCdir)/wincc.c $(wind)/.
+ 	cd $(wind) ; cl /FeATLwin_cl.exe /DDEFDF=cl wincc.c
+ 	rm -f $(wind)/wincc.c
+-xprobe_comp : xisgcc probe_comp.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_comp probe_comp.o atlconf_misc.o $(LIBS)
+-xprobe_aff : probe_aff.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_aff probe_aff.o atlconf_misc.o $(LIBS)
+-xprobe_pmake : probe_pmake.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_pmake probe_pmake.o atlconf_misc.o $(LIBS)
+-xprobe_f2c : probe_f2c.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_f2c probe_f2c.o atlconf_misc.o $(LIBS)
+-xprobe_arch : probe_arch.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_arch probe_arch.o atlconf_misc.o $(LIBS)
+-xprobe_vec : probe_vec.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_vec probe_vec.o atlconf_misc.o $(LIBS)
+-xprobe_asm : probe_asm.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_asm probe_asm.o atlconf_misc.o $(LIBS)
+-xprobe_OS : probe_OS.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xprobe_OS probe_OS.o atlconf_misc.o $(LIBS)
++xprobe_comp : xisgcc probe_comp.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_comp probe_comp.o atlconf_misc_X.o $(LIBS)
++xprobe_aff : probe_aff.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_aff probe_aff.o atlconf_misc_X.o $(LIBS)
++xprobe_pmake : probe_pmake.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_pmake probe_pmake.o atlconf_misc_X.o $(LIBS)
++xprobe_f2c : probe_f2c.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_f2c probe_f2c.o atlconf_misc_X.o $(LIBS)
++xprobe_arch : probe_arch.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_arch probe_arch.o atlconf_misc_X.o $(LIBS)
++xprobe_vec : probe_vec.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_vec probe_vec.o atlconf_misc_X.o $(LIBS)
++xprobe_asm : probe_asm.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_asm probe_asm.o atlconf_misc_X.o $(LIBS)
++xprobe_OS : probe_OS.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xprobe_OS probe_OS.o atlconf_misc_X.o $(LIBS)
+ 
+ xprint_enums : $(SRCdir)/print_enums.c
+ 	$(XCC) $(XCFLAGS) -o xprint_enums $(SRCdir)/print_enums.c
+-xatlbench : atlbench.o atlconf_misc.o
+-	$(XCC) $(XCFLAGS) -o xatlbench atlbench.o atlconf_misc.o
++xatlbench : atlbench.o atlconf_misc_X.o
++	$(XCC) $(XCFLAGS) -o xatlbench atlbench.o atlconf_misc_X.o
+ probe_aff.o : $(SRCdir)/probe_aff.c
+ 	$(XCC) $(XCFLAGS) -c $(SRCdir)/probe_aff.c
+ atlbench.o : $(SRCdir)/atlbench.c
+@@ -85,9 +86,11 @@
+ probe_OS.o : $(SRCdir)/probe_OS.c
+ 	$(XCC) $(XCFLAGS) -c $(SRCdir)/probe_OS.c
+ atlconf_misc.o : $(SRCdir)/atlconf_misc.c
+-	$(XCC) $(XCFLAGS) -c $(SRCdir)/atlconf_misc.c
++	$(CC) $(CCFLAGS) -c $(SRCdir)/atlconf_misc.c
+ atlconf_misc_BE.o : $(SRCdir)/atlconf_misc.c
+ 	$(CC) $(CCFLAGS) -o atlconf_misc_BE.o -c $(SRCdir)/atlconf_misc.c
++atlconf_misc_X.o : $(SRCdir)/atlconf_misc.c
++	$(XCC) $(XCFLAGS) -o atlconf_misc_X.o -c $(SRCdir)/atlconf_misc.c
+ 
+ atlas_run :
+ 	cd $(atldir) ; ./$(exe) $(args) > $(redir)

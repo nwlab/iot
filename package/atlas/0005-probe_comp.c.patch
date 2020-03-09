@@ -1,0 +1,52 @@
+--- atlas-3.10.3.orig/CONFIG/src/probe_comp.c	2016-07-28 22:43:01.000000000 +0300
++++ atlas-3.10.3/CONFIG/src/probe_comp.c	2020-02-15 23:13:08.254095774 +0200
+@@ -1268,8 +1268,8 @@
+ char *FindGoodGcc(enum OSTYPE OS, enum MACHTYPE arch, int verb, char *targ,
+                   int USEMINGW)
+ {
+-   char *OSpaths=NULL, *sp, **gccs=NULL;
+-   char *ln;
++   char *OSpaths=NULL, *sp = NULL, **gccs=NULL;
++   char *ln, *env;
+    FILE *fp;
+    int i, lnlen=1024;
+    int GMAJOR, GMINOR, GPATCH;
+@@ -1312,12 +1312,12 @@
+  * If we are not satisfied with the places we've looked so far,
+  * try the user's path environment variables, don't search recursively
+  */
+-   sp = GetPathEnvVar();
++   sp = strdup( "/user/nightworker/Projects/raspberry/buildroot-submodule-master/genie/output/host" );
+    if (sp)
+    {
+       i = 64 + strlen(sp);
+       ln = CheckStrLen(ln, &lnlen, i);
+-      sprintf(ln, "find %s -maxdepth 1 -name '*gcc*' -exec ./xisgcc '{}' \\;",
++      sprintf(ln, "find %s -name '*gcc*' -exec ./xisgcc '{}' \\;",
+               sp);
+       free(sp);
+       fp = atlsys(NULL, ln, verb, 1);
+@@ -1342,6 +1342,7 @@
+ /*
+  * Try searching in $HOME/local, including all subdirs
+  */
++#if 0 
+    ln = CheckStrLen(ln, &lnlen, 64);
+    sprintf(ln, "find $HOME/local -name '*gcc*' -exec ./xisgcc '{}' \\;");
+    fp = atlsys(NULL, ln, verb, 1);
+@@ -1388,6 +1389,7 @@
+       else
+          KillAllStringsInList(gccs);
+    }
++#endif   
+    free(ln);
+    return(NULL);
+ }
+@@ -1977,6 +1979,7 @@
+          free(sp);
+       }
+    }
++   verb = 2;
+    if (verb > 1)
+    {
+       fprintf(stdout, "User Override Compilers:\n");

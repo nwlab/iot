@@ -95,26 +95,29 @@ funny. After a while, you realize it is horribly inaccurate.
 For it to be useful, we have to make it more accurate.
 
 ## Verify RHVoice
-...
+
+```
 echo "Система умного вигвама приветствует вас" | RHVoice-test -p Anna
-...
+```
 
 ## Verify Espeak
-...
+
+```
 espeak "Text you wish to hear back"
 espeak "Text you wish to hear back" -w test.wav
 aplay test.wav
 espeak  -vru "Русский синтезатор речи"
-...
+```
 
 ## Verify speech-dispatcher
-...
+
+```
 spd-say -o rhvoice -t female1 "hello"
 echo "Проверка синтезатора речи2" | spd-say -o rhvoice -l ru -e -t male1
-...
+```
 
 ## Verify snowboy
-...
+```
 python3 demo.py resources/models/jarvis.umdl
-...
+```
 

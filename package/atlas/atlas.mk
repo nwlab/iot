@@ -15,7 +15,7 @@ ATLAS_SITE = http://downloads.sourceforge.net/project/math-atlas/Stable/$(ATLAS_
 ATLAS_LICENSE = Apache-2.0
 
 ATLAS_MAKE = $(MAKE1)
-#ATLAS_INSTALL_TARGET = NO
+ATLAS_INSTALL_STAGING = YES
 
 # If you have a distribution using the hard floating-point ABI (like Ubuntu 12.04 or later), you can buld ATLAS 3.10.0 using
 # ../configure -D c -DATL_ARM_HARDFP=1 -Si archdef 0 -Fa alg -mfloat-abi=hard
@@ -53,6 +53,13 @@ endef
 
 ifeq ($BR2_PACKAGE_ATLAS_PREBUILD),y)
 ATLAS_LIBS = $(TOPDIR)/../package/atlas/lib
+
+define ATLAS_CONFIGURE_CMDS
+endef
+
+define ATLAS_BUILD_CMDS
+endef
+
 else
 ATLAS_POST_PATCH_HOOKS += ATLAS_APPLY_PATCHES
 ATLAS_LIBS = $(STAGING_DIR)/usr/share/atlas/libs
@@ -67,8 +74,6 @@ define ATLAS_APPLY_SCALING_GOVERNOR
 	ssh "root@$(BR2_PACKAGE_ATLAS_REMOTE_IP)" "echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor;"
 endef
 
-endif
-
 define ATLAS_CONFIGURE_CMDS
 	$(ATLAS_APPLY_SCALING_GOVERNOR)
 	(mkdir -p  $(@D)/build; cd $(@D)/build; STAGING_DIR="$(HOST_DIR)" HOSTCC="$(HOSTCC)" ../configure $(ATLAS_CONF_OPTS) )
@@ -79,6 +84,8 @@ define ATLAS_BUILD_CMDS
 	(cd $(@D)/build; HOSTCC="$(HOSTCC)" $(ATLAS_MAKE) )
 endef
 
+endif
+
 define ATLAS_INSTALL_TARGET_CMDS
 endef
 
@@ -88,4 +95,4 @@ define ATLAS_INSTALL_STAGING_CMDS
 endef
 
 # build
-$(eval $(autotools-package))
+$(eval $(generic-package))

@@ -2,6 +2,8 @@
 
 RTC=/dev/rtc0
 
+. /etc/default/rcS
+
 [ ! -c $RTC ] && exit 0
 
 [ ! -x /sbin/hwclock ] && exit 0

@@ -9,6 +9,7 @@ config BR2SM_PROJECT_NAME
 	source "../package/analogclock/Config.in"
 	source "../package/dashboard/Config.in"
 	source "../package/433utils/Config.in"
+	source "../package/motioneye/Config.in"
 
 menu "Genie speach applications"
 	source "../package/genie_assistant/Config.in"
